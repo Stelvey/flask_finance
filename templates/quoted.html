@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Quoted
+{% endblock %}
+
+{% block main %}
+    {{ symbol }}'s current price is {{ price | usd }}
+{% endblock %}

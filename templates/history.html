@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    History
+{% endblock %}
+
+{% block main %}
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Stock</th>
+            <th scope="col">Type</th>
+            <th scope="col">Price</th>
+            <th scope="col">Shares</th>
+            <th scope="col">Date</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for stock in stocks %}
+                <tr>
+                    <td>{{ stock.symbol }}</td>
+                    <td>{{ stock.type }}</td>
+                    <td>{{ stock.price | usd }}</td>
+                    <td>{{ stock.shares }}</td>
+                    <td class="time">{{ stock.timestamp }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            timestamps = document.getElementsByClassName("time");
+            for (i in timestamps) {
+                localtime = new Date(timestamps[i].innerHTML * 1000);
+                localtime = localtime.toLocaleString();
+                console.log(localtime)
+                timestamps[i].innerHTML = localtime;
+            }
+        })
+    </script>
+{% endblock %}

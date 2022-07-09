@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Profile
+{% endblock %}
+
+{% block main %}
+    <div class="mb-5" style="font-size: 20px">
+    Balance: {{ balance | usd }} |
+    Grand total: {{ grand | usd }}
+    </div>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Stock</th>
+            <th scope="col">Shares</th>
+            <th scope="col">Price</th>
+            <th scope="col">Value</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for stock in stocks %}
+                <tr>
+                    <td>{{ stock.symbol }}</td>
+                    <td>{{ stock["sum(shares)"] }}</td>
+                    <td>{{ stock.price | usd }}</td>
+                    <td>{{ stock.value | usd }}</td>
+                    <td>
+                        <div class="d-inline-block">
+                        <form action="/buy" method="post">
+                            <button class="btn btn-primary" type="submit" name="buy" value="{{ stock.symbol }}">Buy</button>
+                        </form>
+                        </div>
+                        <div class="d-inline-block">
+                        <form action="/sell" method="post">
+                            <button class="btn btn-primary" type="submit" name="sell" value="{{ stock.symbol }}">Sell</button>
+                        </form>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
